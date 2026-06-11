@@ -29,7 +29,11 @@ ctrls.enableDamping = true;
 // use Vite to resolve the glb URL
 // import AstronautUrl from './assets/Astronaut.glb?url';
 const gltfLoader = new GLTFLoader();
-const chinatownGlb = await gltfLoader.loadAsync('/chinatown.glb');
+// import ChinatownUrl from './assets/chinatown.glb?url';
+// const chinatownGlb = await gltfLoader.loadAsync(ChinatownUrl);
+const chinatownGlb = await gltfLoader.loadAsync(
+  `${import.meta.env.BASE_URL}chinatown.glb`
+);
 const chinatown = chinatownGlb.scene;
 
 chinatown.traverse((child) => {
