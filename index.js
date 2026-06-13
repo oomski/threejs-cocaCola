@@ -31,12 +31,12 @@ ctrls.enableDamping = true;
 const gltfLoader = new GLTFLoader();
 // import ChinatownUrl from './assets/chinatown.glb?url';
 // const chinatownGlb = await gltfLoader.loadAsync(ChinatownUrl);
-const chinatownGlb = await gltfLoader.loadAsync(
-  `${import.meta.env.BASE_URL}chinatown.glb`
+const cocaColaGlb = await gltfLoader.loadAsync(
+  `${import.meta.env.BASE_URL}Day 2 - CocaColaSign.glb`
 );
-const chinatown = chinatownGlb.scene;
+const cocaCola = cocaColaGlb.scene;
 
-chinatown.traverse((child) => {
+cocaCola.traverse((child) => {
   if (child.isMesh) {
     child.castShadow = true;
     child.receiveShadow = true;
@@ -44,28 +44,28 @@ chinatown.traverse((child) => {
 });
 
 // ensure world matrices are correct before measuring
-chinatown.updateMatrixWorld(true);
+cocaCola.updateMatrixWorld(true);
 
 // compute bounds and scale so the model's largest dimension equals `targetSize`
-let box = new THREE.Box3().setFromObject(chinatown);
+let box = new THREE.Box3().setFromObject(cocaCola);
 const size = box.getSize(new THREE.Vector3());
 const maxDim = Math.max(size.x, size.y, size.z);
 const targetSize = 4; // world units you want the model to fit in
 if (maxDim > 0) {
   const scale = targetSize / maxDim;
-  chinatown.scale.setScalar(scale);
-  chinatown.updateMatrixWorld(true); // update after scaling
+  cocaCola.scale.setScalar(scale);
+  cocaCola.updateMatrixWorld(true); // update after scaling
 }
 
 // recompute bounds and get center
-box = new THREE.Box3().setFromObject(chinatown);
+box = new THREE.Box3().setFromObject(cocaCola);
 const center = box.getCenter(new THREE.Vector3());
 
 // create a pivot at the world origin and add the model offset so its center is at pivot
 const pivot = new THREE.Group();
 scene.add(pivot);
-chinatown.position.sub(center); // move model so its center is at (0,0,0) relative to pivot
-pivot.add(chinatown);
+cocaCola.position.sub(center); // move model so its center is at (0,0,0) relative to pivot
+pivot.add(cocaCola);
 
 // start rotated 270 degrees around Y
 pivot.rotation.y = 3 * Math.PI / 2; // 270deg
